@@ -5,29 +5,24 @@ import java.util.*;
 
 public class DisplayArray {
 
-    public static void main(String[] args) throws Exception {
-        // write your code here
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
         int n = sc.nextInt();
-        System.out.println(power(x,n));
+        int array[] = new int[n];
+        for(int i=0; i<n; i++)
+        {
+            array[i] = sc.nextInt();
+        }
+        displayArray(array, n-1);
     }
 
-    private static int result=1;
-    public static int power(int x, int n){
-        if(n==0)
+    public static void displayArray(int array[], int n){
+        if(n == -1)
         {
-            result = 1;
+            return;
         }
-        else
-        {
-            result=result*x;
-            if(n>1)
-            {
-                power(x,n-1);
-            }
-        }
-        return result;
+        displayArray(array, n-1);
+        System.out.println(array[n]);
     }
 
 }

@@ -5,29 +5,24 @@ import java.util.*;
 
 public class DisplayArrayInReverse {
 
-    public static void main(String[] args) throws Exception {
-        // write your code here
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
         int n = sc.nextInt();
-        System.out.println(power(x,n));
+        int array[] = new int[n];
+        for(int i=0; i<n; i++)
+        {
+            array[i] = sc.nextInt();
+        }
+        displayArrayInReverse(array, n-1);
     }
 
-    private static int result=1;
-    public static int power(int x, int n){
-        if(n==0)
+    private static void displayArrayInReverse(int[] array, int i) {
+        if(i==-1)
         {
-            result = 1;
+            return;
         }
-        else
-        {
-            result=result*x;
-            if(n>1)
-            {
-                power(x,n-1);
-            }
-        }
-        return result;
+        System.out.println(array[i]);
+        displayArrayInReverse(array, i-1);
     }
 
 }

@@ -9,26 +9,26 @@ public class FirstIndex {
         // write your code here
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
+        globalValue = n;
         int array[] = new int[n];
-        for(int i=0; i<n; i++)
-        {
+        for(int i=0; i<n; i++){
             array[i] = sc.nextInt();
         }
-
         int element = sc.nextInt();
         System.out.println(firstIndex(array, 0, element));
     }
 
-    static int location=-1;
-    public static int firstIndex(int[] array, int index, int element){
-        if(array[index] != element && index<array.length-1)
-        {
-            firstIndex(array,index+1,element);
-        }
-
-        else if(array[index] == element)
+    private static int globalValue=0;
+    private static int firstIndex(int[] array, int index, int element) {
+        int location=-1;
+        if(array[index] == element)
         {
             location = index;
+            return location;
+        }
+        else if(array[index] != element && index < globalValue-1)
+        {
+            location = firstIndex(array, index+1, element);
         }
         return location;
     }

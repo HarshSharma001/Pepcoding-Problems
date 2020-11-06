@@ -6,31 +6,44 @@ import java.util.*;
 public class AllIndicesOfArray {
 
     public static void main(String[] args) throws Exception {
-        // write your code here
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int array[] = new int[n];
-        for(int i=0; i<n; i++)
-        {
-            array[i] = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
+        }
+        int x = Integer.parseInt(br.readLine());
+        int[] iarr = allIndices(arr, x, 0, 0);
+
+        if(iarr.length == 0){
+            System.out.println();
+            return;
         }
 
-        int element = sc.nextInt();
-        System.out.println(lastIndex(array, array.length-1, element));
+        for(int i = 0; i < iarr.length; i++){
+            System.out.println(iarr[i]);
+        }
     }
 
-    static int location=-1;
-    public static int lastIndex(int[] array, int index, int element){
-        if(array[index] != element && index>0)
+    public static int[] allIndices(int[] arr, int x, int idx, int fsf) {
+        // write ur code here
+        if(idx == arr.length)
         {
-            lastIndex(array,index-1,element);
+            return new int[fsf];
         }
 
-        else if(array[index] == element)
+        if(arr[idx] == x)
         {
-            location = index;
+            int array[] = allIndices(arr,x,idx+1,fsf+1);
+            array[fsf] = idx;
+            return array;
         }
-        return location;
+        else
+        {
+            int array[] = allIndices(arr,x,idx+1,fsf);
+            return array;
+        }
     }
 
 }
