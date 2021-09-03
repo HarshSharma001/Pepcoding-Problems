@@ -2,34 +2,37 @@ package com.pepcoding.recursionandbacktracking.recursionwitharraylist;
 import java.util.*;
 
 public class GetSubsequence {
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        System.out.println(gss(s));
+        String str = sc.nextLine();
+        System.out.println(gss(str));
     }
 
     public static ArrayList<String> gss(String str) {
-        if(str.length()==0)
-        {
-            ArrayList<String> list = new ArrayList<>();
-            list.add("");
-            return list;
+        //Base Case
+        if(str.isEmpty()){
+            ArrayList<String> baseCaseList = new ArrayList<>();
+            baseCaseList.add("");
+            return baseCaseList;
         }
-        char initialChar = str.charAt(0);
-        String remaining = str.substring(1, str.length());
-        ArrayList<String> oldResult = gss(remaining);
-        ArrayList<String> newResult = new ArrayList<>();
-        for(String s: oldResult)
-        {
-            newResult.add("" + s);
+        
+        //faith * expectations 1st half
+        char ch = str.charAt(0);
+        String remaining = str.substring(1);
+        //faith
+        ArrayList<String> list = gss(remaining);
+        
+        //faith * expectations 2nd half
+        ArrayList<String> ansList = new ArrayList<>();
+        for(String s: list){
+            ansList.add(s);
         }
-
-        for(String s: oldResult)
-        {
-            newResult.add(initialChar + s);
+        
+        for(String s: list){
+            ansList.add(ch+s);
         }
-
-        return newResult;
+        
+        return ansList;
     }
 }
 

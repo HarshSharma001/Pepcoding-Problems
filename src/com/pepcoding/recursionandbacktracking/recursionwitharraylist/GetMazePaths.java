@@ -2,11 +2,11 @@ package com.pepcoding.recursionandbacktracking.recursionwitharraylist;
 import java.io.*;
 import java.util.*;
 public class GetMazePaths {
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();   //row
-        int m = sc.nextInt();   //column
-        System.out.println(getMazePaths(1,1,n,m));
+        int n = sc.nextInt();   //number of rows
+        int m = sc.nextInt();   //number of columns
+        System.out.println(getMazePaths(0, 0, n-1, m-1));
     }
 
     // sr - source row
@@ -14,36 +14,31 @@ public class GetMazePaths {
     // dr - destination row
     // dc - destination column
     public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
-        if(sc==dc && sr==dr)
-        {
-            ArrayList<String> list = new ArrayList<>();
-            list.add("");
-            return list;
+        if(sr > dr || sc > dc){
+            ArrayList<String> invalidPaths = new ArrayList<>();
+            return invalidPaths;
         }
-        ArrayList<String> horizontalPaths = new ArrayList<>();
-        if(sc < dc)
-        {
-            horizontalPaths = getMazePaths(sr,sc+1,dr,dc);
+        
+        if(sr == dr && sc == dc){
+            ArrayList<String> baseCasePaths = new ArrayList<>();
+            baseCasePaths.add("");
+            return baseCasePaths;
         }
-
-        ArrayList<String> verticalPaths = new ArrayList<>();
-        if(sr < dr)
-        {
-            verticalPaths = getMazePaths(sr+1,sc,dr,dc);
+        
+        //faith
+        ArrayList<String> hPaths = getMazePaths(sr, sc + 1, dr, dc);
+        ArrayList<String> vPaths = getMazePaths(sr + 1, sc, dr, dc);
+        
+        //faith * expectations
+        ArrayList<String> totalPaths = new ArrayList<>();
+        for(String hPath: hPaths){
+            totalPaths.add("h" + hPath);
         }
-
-        ArrayList<String> overallPaths = new ArrayList<>();
-
-        for(String s: horizontalPaths)
-        {
-            overallPaths.add("h"+s);
+        
+        for(String vPath: vPaths){
+            totalPaths.add("v" + vPath);
         }
-
-        for(String s: verticalPaths)
-        {
-            overallPaths.add("v"+s);
-        }
-
-        return overallPaths;
+        
+        return totalPaths;
     }
 }

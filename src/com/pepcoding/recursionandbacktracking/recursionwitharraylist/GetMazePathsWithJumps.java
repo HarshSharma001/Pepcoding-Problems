@@ -5,11 +5,11 @@ import java.util.*;
 
 public class GetMazePathsWithJumps {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        System.out.println(getMazePaths(1, 1, n, m));
+        int n = sc.nextInt();   //number of rows
+        int m = sc.nextInt();   //number of columns
+        System.out.println(getMazePaths(0, 0, n-1, m-1));
     }
 
     // sr - source row
@@ -17,45 +17,46 @@ public class GetMazePathsWithJumps {
     // dr - destination row
     // dc - destination column
     public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
-        if(sc==dc && sr==dr)
-        {
-            ArrayList<String> list = new ArrayList<>();
-            list.add("");
-            return list;
+        //Base Case
+        if(sc == dc && sr == dr){
+           ArrayList<String> baseCaseList = new ArrayList<>();
+           baseCaseList.add("");
+           return baseCaseList;
         }
-        ArrayList<String> finalPaths = new ArrayList<>();
-        //Horizontal Paths
-        for(int h=1; h<=dc-sc; h++)
-        {
-            ArrayList<String> hPaths = getMazePaths(sr, sc+h, dr, dc);
-            for(String s: hPaths)
-            {
-                finalPaths.add("h"+h+s);
+        
+        //Invalid Base Case
+        if(sc > dc || sr > dr){
+            ArrayList<String> invalidPaths = new ArrayList<>();
+            return invalidPaths;
+        }
+        
+        //faith * expectations
+        ArrayList<String> list = new ArrayList<>();
+        //horizontal possible paths
+        for(int i=1; i<=dc; i++){
+            ArrayList<String> hPaths = getMazePaths(sr, sc + i, dr, dc);
+            for(String hPath: hPaths){
+                list.add("h"+i+hPath);
             }
         }
-
-
-        //Vertical Paths
-        for(int v=1; v<=dr-sr; v++)
-        {
-            ArrayList<String> vPaths = getMazePaths(sr+v, sc, dr, dc);
-            for(String s: vPaths)
-            {
-                finalPaths.add("v"+v+s);
+        
+        //vertical possible paths
+        for(int i=1; i<=dr; i++){
+            ArrayList<String> vPaths = getMazePaths(sr + i, sc, dr, dc);
+            for(String vPath: vPaths){
+                list.add("v"+i+vPath);
             }
         }
-
-
-        //Diagonal Paths
-        for(int d=1; d<=dc-sc && d<=dr-sr; d++)
-        {
-            ArrayList<String> dPaths = getMazePaths(sr+d, sc+d, dr, dc);
-            for(String s: dPaths)
-            {
-                finalPaths.add("d"+d+s);
+        
+        //diagonal possible paths
+        for(int i=1, j=1; i<=dr && j<=dc; i++, j++){
+            ArrayList<String> dPaths = getMazePaths(sr + i, sc + i, dr, dc);
+            for(String dPath: dPaths){
+                list.add("d"+i+dPath);
             }
         }
-        return finalPaths;
+        
+        return list;
     }
 
 }

@@ -4,49 +4,46 @@ import java.util.*;
 
 public class GetStairPaths {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        globalNVal = n;
+        int n = sc.nextInt();   //nth stairstep
         System.out.println(getStairPaths(n));
     }
 
-    private static int globalNVal = 0;
-    static int array[] = {1,2,3};
     public static ArrayList<String> getStairPaths(int n) {
-        if(n==0)
-        {
-            ArrayList<String> list = new ArrayList<>();
-            list.add("");
-            return list;
+        //Base Case
+        //if we are on 0th stair step
+        if(n == 0){
+            ArrayList<String> baseCaseList = new ArrayList<>();
+            baseCaseList.add("");
+            return baseCaseList;
         }
-        else if(n < 0)
-        {
-            ArrayList<String> list = new ArrayList<>();
-            return list;
+        
+        //if the stair step goes into negative
+        if(n < 0){
+            ArrayList<String> invalidCaseList = new ArrayList<>();
+            return invalidCaseList;
         }
-
-        ArrayList<String> onePaths = getStairPaths(n-1);
-        ArrayList<String> twoPaths = getStairPaths(n-2);
-        ArrayList<String> threePaths = getStairPaths(n-3);
-
+        
+        //faith
+        ArrayList<String> paths1 = getStairPaths(n-1);
+        ArrayList<String> paths2 = getStairPaths(n-2);
+        ArrayList<String> paths3 = getStairPaths(n-3);
+        
+        //faith * expectation
         ArrayList<String> finalPaths = new ArrayList<>();
-
-        for(String s: onePaths)
-        {
-            finalPaths.add(1+s);
+        for(String path: paths1){
+            finalPaths.add("1" + path);
         }
-
-        for(String s: twoPaths)
-        {
-            finalPaths.add(2+s);
+        
+        for(String path: paths2){
+            finalPaths.add("2" + path);
         }
-
-        for(String s: threePaths)
-        {
-            finalPaths.add(3+s);
+        
+        for(String path: paths3){
+            finalPaths.add("3" + path);
         }
-
+        
         return finalPaths;
     }
 

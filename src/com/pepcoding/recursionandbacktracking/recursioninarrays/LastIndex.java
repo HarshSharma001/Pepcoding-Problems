@@ -5,32 +5,28 @@ import java.util.*;
 
 public class LastIndex {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         // write your code here
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        globalValue = n;
-        int array[] = new int[n];
+        int[] arr = new int[n];
         for(int i=0; i<n; i++){
-            array[i] = sc.nextInt();
+            arr[i] = sc.nextInt();
         }
-        int element = sc.nextInt();
-        System.out.println(lastIndex(array, n-1, element));
+        int x = sc.nextInt();
+        System.out.println(lastIndex(arr, n-1, x));
     }
 
-    private static int globalValue=0;
-    private static int lastIndex(int[] array, int index, int element) {
-        int location=-1;
-        if(array[index] == element)
-        {
-            location = index;
-            return location;
+    public static int lastIndex(int[] arr, int index, int x){
+        //Base Case
+        if(index == 0){
+            if(arr[index] == x) return index;
+            else return -1;
         }
-        else if(array[index] != element && index > 0)
-        {
-            location = lastIndex(array, index-1, element);
-        }
-        return location;
+        //faith * expectation
+        if(arr[index] == x) return index;
+        //faith
+        return lastIndex(arr, index-1, x);
     }
 
 }

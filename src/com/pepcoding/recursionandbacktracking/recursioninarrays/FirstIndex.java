@@ -5,32 +5,32 @@ import java.util.*;
 
 public class FirstIndex {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         // write your code here
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        globalValue = n;
-        int array[] = new int[n];
+        int[] arr = new int[n];
         for(int i=0; i<n; i++){
-            array[i] = sc.nextInt();
+            arr[i] = sc.nextInt();
         }
-        int element = sc.nextInt();
-        System.out.println(firstIndex(array, 0, element));
+        int x = sc.nextInt();   //element to be searched for 1st index
+        System.out.println(firstIndex(arr, n-1, x));
     }
 
-    private static int globalValue=0;
-    private static int firstIndex(int[] array, int index, int element) {
-        int location=-1;
-        if(array[index] == element)
-        {
-            location = index;
-            return location;
+    public static int firstIndex(int[] arr, int index, int x){
+        //Base Case
+        if(index == 0){
+            if(arr[index] == x) return index;
+            else return -1;
         }
-        else if(array[index] != element && index < globalValue-1)
-        {
-            location = firstIndex(array, index+1, element);
-        }
-        return location;
+        
+        //faith
+        int elementIndex = firstIndex(arr, index-1, x);
+        //faith * expectations
+        if(elementIndex != -1) return elementIndex;
+        else
+            if(arr[index] == x) return index;
+            else return -1;
     }
 
 }

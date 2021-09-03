@@ -5,7 +5,7 @@ import java.util.*;
 
 public class AllIndicesOfArray {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
@@ -14,7 +14,7 @@ public class AllIndicesOfArray {
             arr[i] = Integer.parseInt(br.readLine());
         }
         int x = Integer.parseInt(br.readLine());
-        int[] iarr = allIndices(arr, x, 0, 0);
+        int[] iarr = allIndices(arr, x, 0, n, 0);
 
         if(iarr.length == 0){
             System.out.println();
@@ -26,24 +26,23 @@ public class AllIndicesOfArray {
         }
     }
 
-    public static int[] allIndices(int[] arr, int x, int idx, int fsf) {
+    public static int[] allIndices(int[] arr, int x, int index, int n, int fsf) {
         // write ur code here
-        if(idx == arr.length)
-        {
+        //Base Case
+        if(index == n){
             return new int[fsf];
         }
-
-        if(arr[idx] == x)
-        {
-            int array[] = allIndices(arr,x,idx+1,fsf+1);
-            array[fsf] = idx;
-            return array;
+        
+        //faith * expectation 1st half
+        if(arr[index] == x) fsf += 1;      
+        //faith
+        int[] array = allIndices(arr, x, index+1, n, fsf);
+        //faith * expectation 2nd half
+        if(arr[index] == x) {
+            fsf -= 1;
+            array[fsf] = index;
         }
-        else
-        {
-            int array[] = allIndices(arr,x,idx+1,fsf);
-            return array;
-        }
+        return array;
     }
 
 }

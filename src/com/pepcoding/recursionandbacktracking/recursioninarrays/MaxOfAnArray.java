@@ -5,28 +5,26 @@ import java.util.*;
 
 public class MaxOfAnArray {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+        // write your code here
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int array[] = new int[n];
-        for(int i=0; i<n; i++)
-        {
-            array[i] = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i=0; i<n; i++){
+            arr[i] = sc.nextInt();
         }
-        System.out.println(maxOfArray(array, n-1));
+        System.out.println(maxOfArray(arr, n-1));
     }
 
-    private static int maxOfArray(int[] array, int n) {
-        if(n == -1)
-        {
-            return 0;
+    public static int maxOfArray(int[] arr, int index){
+        //Base Case
+        if(index == 0){
+            return arr[index];
         }
-        int max = maxOfArray(array, n-1);
-        if(array[n] > max)
-        {
-            max = array[n];
-        }
-        return max;
+        //faith
+        int max = maxOfArray(arr, index-1);
+        if(arr[index] > max) return arr[index];
+        else return max;
     }
 
 }
