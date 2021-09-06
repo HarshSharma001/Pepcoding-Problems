@@ -1,0 +1,21 @@
+For Memoization :
+
+* If you're going to write a memoized code, then don't go for memoization directly.
+  Instead first write down a recursive code, and then by euler graph, try to analyse the spot
+  at which your recursive code is solving same problems again and again.
+
+  And for that, use a medium length testcase, so that you can verify with more clarity,
+  where your code should get optimized.
+
+  And then apply memoization to your code...
+
+
+* If you're going for tabulation, then follow these steps :
+
+    1) Define Storage & assign meaning to the dp table
+
+    2) Define Direction - where are smaller problems and where are larger problems
+
+                          cause we'll solve from smaller problems to larger problems
+
+    3) Travel & Solve - from the smallest problem to the largest problem
