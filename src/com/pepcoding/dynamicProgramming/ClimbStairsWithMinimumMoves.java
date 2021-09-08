@@ -10,9 +10,9 @@ public class ClimbStairsWithMinimumMoves {
         for(int i = 0; i < n; i++){
             arr[i] = sc.nextInt();
         }
-//        System.out.println(climbStairsWithMinimumMoves(0, 0, n, arr, new int[n + 1]));
+        System.out.println(climbStairsWithMinimumMoves(0, 0, n, arr, new int[n + 1]));
 //        System.out.println(climbStairsWithMinimumMoves(0, 0, n, arr));
-        System.out.println(climbStairsWithMinimumMovesWithTabulation(n, arr));
+//        System.out.println(climbStairsWithMinimumMovesWithTabulation(n, arr));
     }
 
     /**
@@ -38,27 +38,23 @@ public class ClimbStairsWithMinimumMoves {
     }
 
 
-    //memoization code but not working
+    //memoization code
     private static int climbStairsWithMinimumMoves(int index, int cost, int n, int[] arr, int[] questionBank){
         //Base Case
-        if(index == n) return 1;
+        if(index == n) return 0;
         else if(index > n) return Integer.MAX_VALUE;
-        else if(questionBank[index] != 0) {
-            if(questionBank[index] != Integer.MAX_VALUE) return questionBank[index] + 1;
-            return questionBank[index];
-        }
+        else if(questionBank[index] != 0) return questionBank[index];
 
         //faith
         int limit = arr[index];
         int min = Integer.MAX_VALUE;
         for(int i = 1; i <= limit; i++){
             int minCost = climbStairsWithMinimumMoves(index + i, cost + 1, n, arr, questionBank);
-            System.out.println("MinCost for index "+index+" is = "+minCost);
             //faith * expectation
+            if(minCost != Integer.MAX_VALUE) minCost += 1;
             if(minCost < min) min = minCost;
         }
 
-        System.out.println("Final Minimum for index "+index+" is = "+min);
         questionBank[index] = min;
         return min;
     }
