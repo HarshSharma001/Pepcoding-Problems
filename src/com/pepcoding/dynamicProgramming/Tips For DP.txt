@@ -19,3 +19,10 @@ For Memoization :
                           cause we'll solve from smaller problems to larger problems
 
     3) Travel & Solve - from the smallest problem to the largest problem
+
+
+** Important Note about DP table **:
+
+1) When duplicacy isn't allowed - 2D DP Table
+
+2) When duplicacy is allowed - 1D DP Table
